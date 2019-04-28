@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccclubs.tp.mapper.CsProjectPersonMapper" >
+  <resultMap id="BaseResultMap" type="com.ccclubs.tp.model.CsProjectPerson" >
+    <id column="cspp_id" property="csppId" jdbcType="BIGINT" />
+    <result column="cspp_project_info" property="csppProjectInfo" jdbcType="BIGINT" />
+    <result column="cspp_member" property="csppMember" jdbcType="BIGINT" />
+    <result column="cspp_unit_person" property="csppUnitPerson" jdbcType="BIGINT" />
+    <result column="cspp_add_time" property="csppAddTime" jdbcType="TIMESTAMP" />
+    <result column="cspp_add_user" property="csppAddUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cspp_id, cspp_project_info, cspp_member, cspp_unit_person, cspp_add_time, cspp_add_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ccclubs.tp.model.CsProjectPersonExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cs_project_person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cs_project_person
+    where cspp_id = #{csppId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cs_project_person
+    where cspp_id = #{csppId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ccclubs.tp.model.CsProjectPersonExample" >
+    delete from cs_project_person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ccclubs.tp.model.CsProjectPerson" >
+    insert into cs_project_person (cspp_id, cspp_project_info, cspp_member, 
+      cspp_unit_person, cspp_add_time, cspp_add_user
+      )
+    values (#{csppId,jdbcType=BIGINT}, #{csppProjectInfo,jdbcType=BIGINT}, #{csppMember,jdbcType=BIGINT}, 
+      #{csppUnitPerson,jdbcType=BIGINT}, #{csppAddTime,jdbcType=TIMESTAMP}, #{csppAddUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccclubs.tp.model.CsProjectPerson" >
+    insert into cs_project_person
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csppId != null" >
+        cspp_id,
+      </if>
+      <if test="csppProjectInfo != null" >
+        cspp_project_info,
+      </if>
+      <if test="csppMember != null" >
+        cspp_member,
+      </if>
+      <if test="csppUnitPerson != null" >
+        cspp_unit_person,
+      </if>
+      <if test="csppAddTime != null" >
+        cspp_add_time,
+      </if>
+      <if test="csppAddUser != null" >
+        cspp_add_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csppId != null" >
+        #{csppId,jdbcType=BIGINT},
+      </if>
+      <if test="csppProjectInfo != null" >
+        #{csppProjectInfo,jdbcType=BIGINT},
+      </if>
+      <if test="csppMember != null" >
+        #{csppMember,jdbcType=BIGINT},
+      </if>
+      <if test="csppUnitPerson != null" >
+        #{csppUnitPerson,jdbcType=BIGINT},
+      </if>
+      <if test="csppAddTime != null" >
+        #{csppAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csppAddUser != null" >
+        #{csppAddUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ccclubs.tp.model.CsProjectPersonExample" resultType="java.lang.Integer" >
+    select count(*) from cs_project_person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cs_project_person
+    <set >
+      <if test="record.csppId != null" >
+        cspp_id = #{record.csppId,jdbcType=BIGINT},
+      </if>
+      <if test="record.csppProjectInfo != null" >
+        cspp_project_info = #{record.csppProjectInfo,jdbcType=BIGINT},
+      </if>
+      <if test="record.csppMember != null" >
+        cspp_member = #{record.csppMember,jdbcType=BIGINT},
+      </if>
+      <if test="record.csppUnitPerson != null" >
+        cspp_unit_person = #{record.csppUnitPerson,jdbcType=BIGINT},
+      </if>
+      <if test="record.csppAddTime != null" >
+        cspp_add_time = #{record.csppAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.csppAddUser != null" >
+        cspp_add_user = #{record.csppAddUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cs_project_person
+    set cspp_id = #{record.csppId,jdbcType=BIGINT},
+      cspp_project_info = #{record.csppProjectInfo,jdbcType=BIGINT},
+      cspp_member = #{record.csppMember,jdbcType=BIGINT},
+      cspp_unit_person = #{record.csppUnitPerson,jdbcType=BIGINT},
+      cspp_add_time = #{record.csppAddTime,jdbcType=TIMESTAMP},
+      cspp_add_user = #{record.csppAddUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccclubs.tp.model.CsProjectPerson" >
+    update cs_project_person
+    <set >
+      <if test="csppProjectInfo != null" >
+        cspp_project_info = #{csppProjectInfo,jdbcType=BIGINT},
+      </if>
+      <if test="csppMember != null" >
+        cspp_member = #{csppMember,jdbcType=BIGINT},
+      </if>
+      <if test="csppUnitPerson != null" >
+        cspp_unit_person = #{csppUnitPerson,jdbcType=BIGINT},
+      </if>
+      <if test="csppAddTime != null" >
+        cspp_add_time = #{csppAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csppAddUser != null" >
+        cspp_add_user = #{csppAddUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cspp_id = #{csppId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccclubs.tp.model.CsProjectPerson" >
+    update cs_project_person
+    set cspp_project_info = #{csppProjectInfo,jdbcType=BIGINT},
+      cspp_member = #{csppMember,jdbcType=BIGINT},
+      cspp_unit_person = #{csppUnitPerson,jdbcType=BIGINT},
+      cspp_add_time = #{csppAddTime,jdbcType=TIMESTAMP},
+      cspp_add_user = #{csppAddUser,jdbcType=VARCHAR}
+    where cspp_id = #{csppId,jdbcType=BIGINT}
+  </update>
+</mapper>
